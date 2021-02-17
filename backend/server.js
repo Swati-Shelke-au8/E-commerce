@@ -1,54 +1,56 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const colors = require('colors')
-const morgan = require('morgan')
-const { notFound, errorHandler } = require('./middleware/errorMiddleware.js')
-const connectDB = require('./config/db.js')
-const path = require('path')
+import express from "express";
+import dotenv from "dotenv";
+import colors from "colors";
+import morgan from "morgan";
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import connectDB from "./config/db.js";
+import path from "path";
 
-const productRoutes = require('./routes/productRoutes.js')
-const userRoutes = require('./routes/userRoutes.js')
-const orderRoutes = require('./routes/orderRoutes.js')
-const uploadRoutes = require('./routes/uploadRoutes.js')
+import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
-dotenv.config()
+dotenv.config();
 
-connectDB()
+connectDB();
 
-const app = express()
+const app = express();
 
-if (process.env.NODE_ENV === 'development') {
-	app.use(morgan('dev'))
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 
-app.use(express.json())
+app.use(express.json());
 
-app.use('/api/products', productRoutes)
-app.use('/api/users', userRoutes)
-app.use('/api/orders', orderRoutes)
-app.use('/api/upload', uploadRoutes)
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/upload", uploadRoutes);
 
-const __dir = path.resolve()
-app.use('/uploads', express.static(path.join(__dir, '/uploads')))
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.join(__dir, '/frontend/build')))
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
 
-	app.get('*', (req, res) =>
-		res.sendFile(path.resolve(__dir, 'frontend', 'build', 'index.html'))
-	)
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+  );
 } else {
-	app.get('/', (req, res) => {
-		res.send('API is running....')
-	})
+  app.get("/", (req, res) => {
+    res.send("API is running....");
+  });
 }
 
-app.use(notFound)
-app.use(errorHandler)
+app.use(notFound);
+app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 app.listen(
-	PORT,
-	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)
-)
+  PORT,
+  console.log(
+    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+  )
+);
