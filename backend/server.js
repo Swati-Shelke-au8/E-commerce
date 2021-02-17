@@ -1,7 +1,6 @@
-//
-const path = require("path");
-const express = require("express");
-const dotenv = require("dotenv");
+import path from "path";
+import express from "express";
+import dotenv from "dotenv";
 import colors from "colors";
 import morgan from "morgan";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
