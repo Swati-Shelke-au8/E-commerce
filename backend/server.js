@@ -1,15 +1,15 @@
-import express from "express";
-import dotenv from "dotenv";
-import colors from "colors";
-import morgan from "morgan";
-import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
-import connectDB from "./config/db.js";
-import path from "path";
+const express =require("express");
+const dotenv =require( "dotenv");
+const colors =require( "colors");
+const morgan =require( "morgan");
+const { notFound, errorHandler } =require( "./middleware/errorMiddleware.js");
+const connectDB =require( "./config/db.js");
+const path =require( "path");
 
-import productRoutes from "./routes/productRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import orderRoutes from "./routes/orderRoutes.js";
-import uploadRoutes from "./routes/uploadRoutes.js";
+const productRoutes =require( "./routes/productRoutes.js");
+const userRoutes =require( "./routes/userRoutes.js");
+const orderRoutes =require( "./routes/orderRoutes.js");
+const uploadRoutes =require( "./routes/uploadRoutes.js");
 
 dotenv.config();
 
